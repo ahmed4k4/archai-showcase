@@ -1,0 +1,36 @@
+/* Archai Integrated Systems — theme tokens extracted from the logo */
+:root{
+  --font-sans:"Montserrat","Cairo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  /* Brand */
+  --brand-cyan:#22b8ff;      /* neon circuit */
+  --brand-cyan-glow:#6fd6ff;
+  --brand-blue:#0a84d6;
+  --brand-silver:#cfd4d9;    /* metallic A + wordmark */
+  --brand-copper:#b97b4a;    /* PCB traces */
+  /* Surfaces (dark = default, matches logo background) */
+  --bg:#18212b; --bg-elev:#212d39; --bg-card:#26333f; --bg-input:#1d2832;
+  --border:#34434f; --text:#e8ebee; --text-muted:#9aa7b2;
+  --primary:var(--brand-cyan); --primary-contrast:#04202f;
+  --accent:var(--brand-copper);
+  --success:#34d399; --warning:#fbbf24; --danger:#f87171;
+  --glow:0 0 18px rgba(34,184,255,.45);
+  --hero-grad:radial-gradient(900px 500px at 70% -10%,rgba(34,184,255,.18),transparent 60%),linear-gradient(160deg,#2b3946,#151d26);
+  /* Scale */
+  --r-sm:8px; --r-md:14px; --r-lg:22px;
+  --shadow-1:0 2px 8px rgba(0,0,0,.25); --shadow-2:0 14px 34px rgba(0,0,0,.35);
+  --sp-1:.25rem;--sp-2:.5rem;--sp-3:1rem;--sp-4:1.5rem;--sp-5:2.5rem;--sp-6:4rem;
+  --fs-sm:.875rem;--fs-md:1rem;--fs-lg:1.25rem;--fs-xl:2rem;--fs-2xl:clamp(2.2rem,5vw,3.8rem);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+:root[data-theme="light"]{
+  --bg:#f3f6f9; --bg-elev:#fff; --bg-card:#fff; --bg-input:#eef2f6;
+  --border:#d8e0e8; --text:#17212b; --text-muted:#5b6b79;
+  --primary:#0a84d6; --primary-contrast:#fff;
+  --glow:0 0 0 rgba(0,0,0,0);
+  --hero-grad:radial-gradient(900px 500px at 70% -10%,rgba(10,132,214,.14),transparent 60%),linear-gradient(160deg,#fff,#e6edf4);
+  --shadow-1:0 2px 8px rgba(23,33,43,.08); --shadow-2:0 14px 34px rgba(23,33,43,.14);
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== v2 palette: deeper navy, cyan→indigo→violet accents ===== */
+:root{--bg:#0a0f1c;--bg-elev:#111a2e;--bg-card:#131d33;--bg-input:#0e1627;--border:#223052;--text:#eef2fb;--text-muted:#93a3c0;--primary:#2dd4ff;--primary-contrast:#04121c;--accent:#c084fc;--violet:#8b5cf6;--grad:linear-gradient(120deg,#22d3ee,#6366f1 55%,#c084fc);--glow:0 0 24px rgba(45,212,255,.4);--shadow-2:0 24px 60px rgba(4,8,22,.55)}
+:root[data-theme="light"]{--bg:#f4f7fc;--bg-elev:#fff;--bg-card:#fff;--bg-input:#edf2fa;--border:#d9e2f1;--text:#0e1627;--text-muted:#5a6b88;--primary:#0a7bd6;--primary-contrast:#04121c;--accent:#7c3aed;--glow:none;--shadow-2:0 20px 50px rgba(30,50,100,.16)}

@@ -1,0 +1,269 @@
+/* ============================================================
+   AMBIENT — Global floating layer
+   ============================================================ */
+
+.ambient-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  contain: strict;
+}
+
+.ambient-shape {
+  position: absolute;
+  opacity: 0.5;
+  will-change: transform;
+  pointer-events: none;
+  contain: strict;
+  transform: translateZ(0);
+}
+
+:root[data-theme="light"] .ambient-shape { opacity: 0.35; }
+
+.ambient-shape-1 {
+  width: 140px; height: 140px;
+  top: 12%; inset-inline-end: 8%;
+  border: 1.5px solid var(--line-amber);
+  border-radius: 20px;
+  animation: ambientRotate1 40s linear infinite,
+             ambientFloat1 12s var(--ease-smooth) infinite alternate;
+}
+
+.ambient-shape-2 {
+  width: 220px; height: 220px;
+  top: 55%; inset-inline-start: -80px;
+  border: 1.5px solid var(--line-teal);
+  border-radius: 50%;
+  animation: ambientFloat2 18s var(--ease-smooth) infinite alternate;
+}
+
+.ambient-shape-3 {
+  width: 0; height: 0;
+  top: 30%; inset-inline-start: 12%;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid rgba(255, 140, 66, 0.15);
+  animation: ambientFloat3 15s var(--ease-smooth) infinite alternate;
+}
+:root[data-theme="light"] .ambient-shape-3 {
+  border-bottom-color: rgba(249, 115, 22, 0.18);
+}
+
+.ambient-shape-4 {
+  width: 100px; height: 100px;
+  bottom: 15%; inset-inline-end: 10%;
+  border: 2px dashed rgba(167, 139, 250, 0.30);
+  border-radius: 50%;
+  animation: ambientSpin 30s linear infinite,
+             ambientFloat4 14s var(--ease-smooth) infinite alternate;
+}
+:root[data-theme="light"] .ambient-shape-4 {
+  border-color: rgba(124, 58, 237, 0.18);
+}
+
+.ambient-shape-5 {
+  width: 80px; height: 80px;
+  top: 75%; inset-inline-start: 20%;
+  background-image: radial-gradient(circle, var(--line-amber) 1px, transparent 1px);
+  background-size: 12px 12px;
+  animation: ambientFloat5 16s var(--ease-smooth) infinite alternate;
+}
+
+.ambient-shape-6 {
+  width: 30px; height: 30px;
+  top: 45%; inset-inline-end: 25%;
+  animation: ambientFloat6 10s var(--ease-smooth) infinite alternate;
+}
+.ambient-shape-6::before,
+.ambient-shape-6::after {
+  content: "";
+  position: absolute;
+  background: var(--amber-molten);
+  opacity: 0.4;
+}
+.ambient-shape-6::before {
+  top: 50%; inset-inline-start: 0;
+  width: 100%; height: 2px;
+  transform: translateY(-50%);
+}
+.ambient-shape-6::after {
+  inset-inline-start: 50%; top: 0;
+  width: 2px; height: 100%;
+  transform: translateX(-50%);
+}
+
+.ambient-shape-7 {
+  width: 60px; height: 60px;
+  bottom: 30%; inset-inline-end: 40%;
+  background: linear-gradient(135deg, rgba(255, 140, 66, 0.12), rgba(45, 212, 191, 0.12));
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: ambientFloat7 22s var(--ease-smooth) infinite alternate;
+}
+:root[data-theme="light"] .ambient-shape-7 {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.10), rgba(20, 184, 166, 0.10));
+}
+
+@keyframes ambientRotate1 {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes ambientSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+@keyframes ambientFloat1 {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(-30px, 40px, 0) rotate(180deg); }
+}
+@keyframes ambientFloat2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(60px, -40px, 0) scale(1.15); }
+}
+@keyframes ambientFloat3 {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(20px, -30px, 0) rotate(15deg); }
+}
+@keyframes ambientFloat4 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-40px, -30px, 0) scale(1.2); }
+}
+@keyframes ambientFloat5 {
+  0% { transform: translate3d(0, 0, 0); opacity: 0.4; }
+  100% { transform: translate3d(-20px, 30px, 0); opacity: 0.7; }
+}
+@keyframes ambientFloat6 {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(15px, -25px, 0) rotate(90deg); }
+}
+@keyframes ambientFloat7 {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(30px, 20px, 0) rotate(-60deg); }
+}
+
+@media (max-width: 720px) {
+  .ambient-shape-1, .ambient-shape-2, .ambient-shape-4,
+  .ambient-shape-5, .ambient-shape-7 { display: none; }
+  .ambient-shape-3 { opacity: 0.25; }
+  .ambient-shape-6 { opacity: 0.2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-shape { animation: none !important; }
+}
+
+/* ============================================================
+   SCROLL PROGRESS
+   ============================================================ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--amber-molten), var(--teal-signal), var(--violet-hint));
+  z-index: calc(var(--z-sticky) + 1);
+  pointer-events: none;
+  transition: width 80ms linear;
+}
+
+:root[data-theme="dark"] .scroll-progress {
+  box-shadow: 0 0 12px rgba(255, 140, 66, 0.5);
+}
+
+/* ============================================================
+   CURSOR GLOW
+   ============================================================ */
+.cursor-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  background: radial-gradient(circle, rgba(255, 140, 66, 0.08), transparent 70%);
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity var(--dur-base) var(--ease-smooth);
+  will-change: transform;
+}
+
+:root[data-theme="light"] .cursor-glow {
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.06), transparent 70%);
+}
+
+.cursor-glow.active { opacity: 1; }
+
+@media (max-width: 960px) {
+  .cursor-glow { display: none; }
+}
+
+/* ============================================================
+   RIPPLE
+   ============================================================ */
+.ripple { position: relative; overflow: hidden; }
+
+.ripple-ink {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  animation: rippleAnim 0.6s var(--ease-out);
+  pointer-events: none;
+}
+
+:root[data-theme="light"] .ripple-ink {
+  background: rgba(234, 88, 12, 0.25);
+}
+
+@keyframes rippleAnim {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ============================================================
+   SPINNER
+   ============================================================ */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--line-2);
+  border-top-color: var(--amber-molten);
+  border-radius: 50%;
+  animation: spinnerSpin 0.8s linear infinite;
+}
+
+@keyframes spinnerSpin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   FAB — back to top
+   ============================================================ */
+.fab {
+  position: fixed;
+  bottom: 1.5rem;
+  inset-inline-end: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-full);
+  background: var(--grad-primary);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--glow-amber-lg), var(--lift-3);
+  z-index: calc(var(--z-toast) - 1);
+  cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-spring),
+              box-shadow var(--dur-base) var(--ease-smooth);
+}
+
+.fab:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: var(--glow-amber-lg), var(--lift-4);
+}
+
+.fab:active { transform: scale(0.95); }
+
+@media (max-width: 640px) {
+  .fab { width: 48px; height: 48px; bottom: 1rem; inset-inline-end: 1rem; }
+}
