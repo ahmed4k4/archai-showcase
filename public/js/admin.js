@@ -379,14 +379,14 @@ const form = (title, fields, v = {}, extra) => {
 /* ============================================================
    IMAGE PACK
    ============================================================ */
-async function pack(f) {
+async function pack(f, max = 1400, q = 0.8) {
   const b = await createImageBitmap(f);
-  const s = Math.min(1, 1600 / Math.max(b.width, b.height));
+  const s = Math.min(1, max / Math.max(b.width, b.height));
   const c = document.createElement("canvas");
   c.width = Math.round(b.width * s);
   c.height = Math.round(b.height * s);
   c.getContext("2d").drawImage(b, 0, 0, c.width, c.height);
-  return new Promise((r) => c.toBlob(r, "image/webp", 0.85));
+  return new Promise((r) => c.toBlob(r, "image/webp", q));
 }
 
 /* ============================================================
@@ -420,6 +420,11 @@ async function media(box, pid) {
         .update({ [projectCol]: img.public_url })
         .eq("id", pid)
     );
+    /* card thumbnail (ignored silently if the migration hasn't been run yet) */
+    if (key === "cover") {
+      await sb.from("projects").update({ cover_thumb: img.thumb_url || null }).eq("id", pid);
+    }
+    clearCache();
   };
 
   const draw = async () => {
@@ -519,25 +524,35 @@ async function media(box, pid) {
         let n = 0;
         for (const f of arr) {
           toast(`${t("uploading")} ${++n}/${arr.length}`);
-          const b = await pack(f);
-          const path = `${pid}/${crypto.randomUUID()}.webp`;
-          const s = await sb.storage
-            .from(BUCKET)
-            .upload(path, b, { contentType: "image/webp" });
+          const [b, tb] = await Promise.all([pack(f), pack(f, 480, 0.72)]);
+          const uid = crypto.randomUUID();
+          const path = `${pid}/${uid}.webp`;
+          const tpath = `${pid}/t_${uid}.webp`;
+          const opt = { contentType: "image/webp", cacheControl: "31536000" };
+          const [s, ts] = await Promise.all([
+            sb.storage.from(BUCKET).upload(path, b, opt),
+            sb.storage.from(BUCKET).upload(tpath, tb, opt),
+          ]);
           if (s.error) throw s.error;
+          if (ts.error) throw ts.error;
           const pu = sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
-          const row = ok(
-            await sb
-              .from("project_images")
-              .insert({
-                project_id: pid,
-                storage_path: path,
-                public_url: pu,
-                sort_order: im.length + n,
-              })
-              .select()
-              .single()
-          );
+          const tu = sb.storage.from(BUCKET).getPublicUrl(tpath).data.publicUrl;
+          const base = {
+            project_id: pid,
+            storage_path: path,
+            public_url: pu,
+            sort_order: im.length + n,
+          };
+          let ins = await sb
+            .from("project_images")
+            .insert({ ...base, thumb_path: tpath, thumb_url: tu })
+            .select()
+            .single();
+          /* migration not run yet -> fall back to the old columns */
+          if (ins.error && /thumb_/.test(ins.error.message || "")) {
+            ins = await sb.from("project_images").insert(base).select().single();
+          }
+          const row = ok(ins);
           if (!im.length && n === 1) {
             for (const k in ROLE) await setRole(row, k);
           }
@@ -577,7 +592,7 @@ async function media(box, pid) {
           await setRole(i, b.dataset.r);
           clearCache();
         } else if (b.dataset.x && confirm(t("confirmDelete"))) {
-          await sb.storage.from(BUCKET).remove([i.storage_path]);
+          await sb.storage.from(BUCKET).remove([i.storage_path, i.thumb_path].filter(Boolean));
           ok(await sb.from("project_images").delete().eq("id", i.id));
           const u = {};
           for (const k in ROLE) {
@@ -586,6 +601,7 @@ async function media(box, pid) {
           if (Object.keys(u).length) {
             ok(await sb.from("projects").update(u).eq("id", pid));
           }
+          if (i.is_cover) await sb.from("projects").update({ cover_thumb: null }).eq("id", pid);
           clearCache();
         }
         await draw();
@@ -1154,11 +1170,11 @@ async function projects() {
           const im = ok(
             await sb
               .from("project_images")
-              .select("storage_path")
+              .select("*")
               .eq("project_id", id)
           );
           if (Array.isArray(im) && im.length)
-            await sb.storage.from(BUCKET).remove(im.map((x) => x.storage_path));
+            await sb.storage.from(BUCKET).remove(im.flatMap((x) => [x.storage_path, x.thumb_path]).filter(Boolean));
           ok(await sb.from("projects").delete().eq("id", id));
           clearCache();
           toast(t("deleted"));
@@ -1469,7 +1485,12 @@ async function categories() {
         const res = await sb
           .from("categories")
           .update({ active: newVal })
-          .eq("id", id);
+          .eq("id", id)
+          .select("id");
+        /* RLS can reject an update silently (0 rows, no error) - surface it */
+        if (!res.error && (!res.data || res.data.length === 0)) {
+          res.error = new Error("لم يتم الحفظ — سجّل الدخول كأدمن / Not saved: admin login required");
+        }
         if (res.error) {
           k.checked = !newVal;
           tr.dataset.active = !newVal ? "true" : "false";

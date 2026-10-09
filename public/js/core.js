@@ -22,13 +22,27 @@ export const url = (u) => (/^https?:\/\//i.test(u || "") ? u : "#");
 /* ============================================================
    CACHE HELPERS
    ============================================================ */
+/* Public-data cache. The version lives in localStorage (shared by all tabs of this
+   browser), so an admin edit invalidates the cache in the public tab immediately.
+   Other visitors see changes after the TTL (60 s). */
+const CACHE_VER = "archai:cachever";
+const ver = () => {
+  try { return localStorage.getItem(CACHE_VER) || "0"; } catch { return "0"; }
+};
+export const readCache = (key, ttl) => {
+  try {
+    const c = JSON.parse(sessionStorage.getItem(key) || "null");
+    return c && c.v === ver() && Date.now() - c.t < ttl ? c.d : null;
+  } catch { return null; }
+};
+export const writeCache = (key, data) => {
+  try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v: ver(), d: data })); } catch {}
+};
+
 export const clearCache = () => {
-  try {
-    sessionStorage.removeItem("hm");
-  } catch {}
-  try {
-    sessionStorage.removeItem("archai:cache");
-  } catch {}
+  try { localStorage.setItem(CACHE_VER, String(Date.now())); } catch {}
+  try { sessionStorage.removeItem("hm"); } catch {}
+  try { sessionStorage.removeItem("archai:cache"); } catch {}
 };
 
 /* ============================================================
@@ -749,13 +763,23 @@ export async function track(projectId) {
       sessionStorage[key] = now;
     }
 
-    if (!DEBUG) {
-      const { data: { session } } = await sb.auth.getSession();
-      if (session) return;
-    }
+    /* opt-out for this browser only: localStorage.setItem("archai:notrack","1") */
+    if (!DEBUG && localStorage.getItem("archai:notrack") === "1") return;
 
-    let s = sessionStorage.sid;
-    if (!s) s = sessionStorage.sid = crypto.randomUUID().replace(/-/g, "");
+    /* one visitor session shared by all tabs, renewed after 30 min of inactivity */
+    let s;
+    try {
+      const now2 = Date.now();
+      let o = JSON.parse(localStorage.getItem("archai:sid") || "null");
+      if (!o || !o.id || now2 - o.t > 18e5) {
+        o = { id: crypto.randomUUID().replace(/-/g, "").slice(0, 20), t: now2 };
+      }
+      o.t = now2;
+      localStorage.setItem("archai:sid", JSON.stringify(o));
+      s = o.id;
+    } catch {
+      s = sessionStorage.sid || (sessionStorage.sid = crypto.randomUUID().replace(/-/g, "").slice(0, 20));
+    }
 
     const ua = navigator.userAgent;
     const dev = /ipad|tablet/i.test(ua) ? "tablet"
@@ -771,10 +795,12 @@ export async function track(projectId) {
       : /linux/i.test(ua) ? "Linux" : "Other";
 
     let ref = document.referrer;
+    let refHost = null;
     let rt = "direct";
     if (ref) {
       try {
         const host = new URL(ref).hostname;
+        refHost = host.slice(0, 80);
         rt = host === location.hostname ? "direct"
           : /google|bing|yahoo|duckduckgo|yandex|baidu/i.test(host) ? "search"
           : "referral";
@@ -787,7 +813,7 @@ export async function track(projectId) {
       p_device: dev,
       p_browser: br,
       p_os: os,
-      p_referrer: ref || null,
+      p_referrer: refHost,
       p_referrer_type: rt,
       p_project: projectId || null,
     };

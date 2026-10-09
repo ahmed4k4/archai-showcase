@@ -1,6 +1,8 @@
 import {
   sb, $, $$, esc, url, t, tt, L, lang,
   boot, track, applyI18n, clearCache, withNoSmooth,
+  readCache,
+  writeCache,
 } from "./core.js";
 
 /* ---------- Helpers ---------- */
@@ -10,7 +12,7 @@ const img = (s, a) =>
 const SEL =
   "*,categories(id,name_en,name_ar,active),project_technologies(technology),project_industries(industry)";
 const LIST =
-  "id,slug,category_id,sort_order,title_en,title_ar,summary_en,summary_ar,live_url,cover_image,featured_image,featured,featured_sort_order,categories(id,name_en,name_ar,active),project_technologies(technology),project_industries(industry)";
+  "id,slug,category_id,sort_order,title_en,title_ar,summary_en,summary_ar,live_url,cover_image,cover_thumb,featured_image,featured,featured_sort_order,categories(id,name_en,name_ar,active),project_technologies(technology),project_industries(industry)";
 
 const PV = lang === "ar" ? "›" : "‹";
 const NX = lang === "ar" ? "‹" : "›";
@@ -223,7 +225,7 @@ export const card = (p) => {
   <article class="card">
     <a class="im" href="project.html?id=${p.id}" data-hint="${t("details")}"
        aria-label="${t("details")} — ${esc(title)}">
-      ${img(p.cover_image, title)}
+      ${img(p.cover_thumb || p.cover_image, title)}
     </a>
     <div class="b">
       <div>
@@ -305,19 +307,27 @@ export async function home() {
   root.innerHTML = `<div class="empty">${t("load")}</div>`;
 
   try {
-    const [rCats, rProjs, rSettings] = await Promise.all([
-      sb
-        .from("categories")
-        .select("id,slug,icon,name_en,name_ar,active")
-        .eq("active", true)
-        .order("sort_order"),
-      sb.from("projects").select(LIST).order("sort_order"),
-      sb.from("site_settings").select("*").eq("id", 1).maybeSingle(),
-    ]);
-
-    const catsRaw = Array.isArray(rCats.data) ? rCats.data : [];
-    const projsRaw = Array.isArray(rProjs.data) ? rProjs.data : [];
-    const st = rSettings.data || {};
+    let H = readCache("hm", 60000);
+    if (!H) {
+      const [rCats, rProjs, rSettings] = await Promise.all([
+        sb
+          .from("categories")
+          .select("id,slug,icon,name_en,name_ar,active")
+          .eq("active", true)
+          .order("sort_order"),
+        sb.from("projects").select(LIST).order("sort_order"),
+        sb.from("site_settings").select("*").eq("id", 1).maybeSingle(),
+      ]);
+      H = {
+        cats: Array.isArray(rCats.data) ? rCats.data : [],
+        projs: Array.isArray(rProjs.data) ? rProjs.data : [],
+        st: rSettings.data || {},
+      };
+      if (!rCats.error && !rProjs.error && !rSettings.error) writeCache("hm", H);
+    }
+    const catsRaw = H.cats;
+    const projsRaw = H.projs;
+    const st = H.st;
 
     const cats = onlyActiveCats(catsRaw);
     const activeCatIds = new Set(cats.map((c) => String(c.id)));
@@ -601,7 +611,7 @@ export async function project() {
 
   const { data: p, error: pErr } = await sb
     .from("projects")
-    .select(SEL + ",project_images(*)")
+    .select(SEL + ",project_images(id,public_url,alt_en,alt_ar,sort_order,is_hero)")
     .eq("id", id)
     .maybeSingle();
 
@@ -746,12 +756,19 @@ export async function project() {
   }
 
   /* Related — filter by active category */
-  const { data: activeCatsData } = await sb.from("categories").select("id").eq("active", true);
+  const H = readCache("hm", 60000);
+  let o;
+  if (H) {
+    o = H.projs.filter((x) => x && x.id !== p.id);
+  } else {
+    const r = await sb.from("projects").select(LIST).neq("id", p.id).limit(12);
+    o = r.data;
+  }
   const activeCatIds = new Set(
-    (Array.isArray(activeCatsData) ? activeCatsData : []).map((c) => String(c.id))
+    (Array.isArray(o) ? o : [])
+      .filter((x) => x.categories && x.categories.active !== false)
+      .map((x) => String(x.category_id))
   );
-
-  const { data: o } = await sb.from("projects").select(LIST).neq("id", p.id).limit(30);
 
   const sc = (x) =>
     (x.category_id && x.category_id === p.category_id ? 2 : 0) +
