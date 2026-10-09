@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=5"
+    />
+    <meta name="theme-color" content="#0f0e0c" />
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/light.css" />
+    <title>Archai — Projects</title>
+    <meta
+      name="description"
+      content="Archai Integrated Systems — engineered software, embedded, and mobile projects."
+    />
+  </head>
+  <body>
+    <div class="ambient-layer" aria-hidden="true">
+      <div class="ambient-shape ambient-shape-1"></div>
+      <div class="ambient-shape ambient-shape-2"></div>
+      <div class="ambient-shape ambient-shape-3"></div>
+      <div class="ambient-shape ambient-shape-4"></div>
+      <div class="ambient-shape ambient-shape-5"></div>
+      <div class="ambient-shape ambient-shape-6"></div>
+      <div class="ambient-shape ambient-shape-7"></div>
+    </div>
+
+    <header class="top">
+      <div class="wrap nav">
+        <a href="index.html" aria-label="Archai home"
+          ><img src="assets/logo.png" alt="Archai"
+        /></a>
+        <span class="sp"></span>
+        <a class="btn" href="index.html#list" data-i="projects"></a>
+        <button
+          class="btn"
+          id="lang"
+          data-aria="lang"
+          aria-label="Switch language"
+        ></button>
+        <button
+          class="btn"
+          id="theme"
+          data-aria="theme"
+          aria-label="Toggle theme"
+        >
+          ◐
+        </button>
+      </div>
+    </header>
+
+    <section class="hero" id="hero" aria-label="Hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-grid-lines"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+        <div class="hero-shapes">
+          <div class="hero-shape hero-shape-1"></div>
+          <div class="hero-shape hero-shape-2"></div>
+          <div class="hero-shape hero-shape-3"></div>
+          <div class="hero-shape hero-shape-4"></div>
+          <div class="hero-shape hero-shape-5"></div>
+        </div>
+        <canvas class="hero-particles" id="heroParticles"></canvas>
+        <svg
+          class="hero-circuit"
+          viewBox="0 0 1200 600"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="circuitGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ff8c42" stop-opacity="0" />
+              <stop offset="50%" stop-color="#ff8c42" stop-opacity="0.8" />
+              <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <path
+            class="circuit-line"
+            d="M0,300 Q300,200 600,300 T1200,300"
+            stroke="url(#circuitGrad)"
+            stroke-width="1.5"
+            fill="none"
+          />
+          <path
+            class="circuit-line"
+            d="M0,400 Q400,300 700,400 T1200,400"
+            stroke="url(#circuitGrad)"
+            stroke-width="1"
+            fill="none"
+          />
+          <path
+            class="circuit-line"
+            d="M0,200 Q350,300 650,200 T1200,200"
+            stroke="url(#circuitGrad)"
+            stroke-width="1"
+            fill="none"
+          />
+          <circle class="circuit-dot" cx="600" cy="300" r="4" />
+          <circle class="circuit-dot" cx="700" cy="400" r="3" />
+          <circle class="circuit-dot" cx="650" cy="200" r="3" />
+        </svg>
+      </div>
+
+      <div class="wrap hero-wrap">
+        <div class="hero-grid">
+          <div class="hero-stat" id="heroStat">
+            <div class="hero-stat-inner">
+              <span class="num" id="heroCount">00</span>
+              <span class="label" data-i="engineered">مشروع هندسي</span>
+            </div>
+            <svg
+              class="hero-stat-ring"
+              viewBox="0 0 100 100"
+              aria-hidden="true"
+            >
+              <circle
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="rgba(255,140,66,0.25)"
+                stroke-width="0.5"
+              />
+              <circle
+                class="ring-progress"
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="url(#ringGrad)"
+                stroke-width="1.5"
+                stroke-dasharray="289"
+                stroke-dashoffset="289"
+                stroke-linecap="round"
+              />
+              <defs>
+                <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ff8c42" />
+                  <stop offset="100%" stop-color="#2dd4bf" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div class="hero-main">
+            <div class="hero-eyebrow">
+              <span class="hero-eyebrow-dot"></span>
+              <span data-i="heroEyebrow">أرشاي — الأنظمة المتكاملة</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span class="hero-title-line">
+                <span class="hero-title-ar" id="heroTitleAr"
+                  >اكتشف مشاريعنا الرقمية</span
+                >
+              </span>
+              <span class="hero-title-line hero-title-line-2">
+                <span class="hero-title-en" id="heroTitleEn" dir="ltr"
+                  >Explore Our Digital Projects</span
+                >
+              </span>
+            </h1>
+
+            <p class="hero-desc" id="heroDesc">
+              حلول برمجية ومدمجة وموبايل من هندسة أرشاي.
+            </p>
+
+            <div class="hero-actions">
+              <a
+                class="btn p hero-cta ripple"
+                href="#list"
+                data-aria="explore"
+                aria-label="Explore projects"
+              >
+                <span class="hero-cta-shine" aria-hidden="true"></span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+                <span data-i="ctaExplore">استعرض المشاريع</span>
+              </a>
+              <a
+                class="btn hero-cta-ghost"
+                href="#sl"
+                data-aria="featT"
+                aria-label="Featured projects"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 20.9l1.6-7L2 9.2l7.1-.6z"
+                  />
+                </svg>
+                <span data-i="ctaFeatured">المشاريع المميزة</span>
+              </a>
+            </div>
+
+            <div class="hero-meta">
+              <div class="hero-meta-item">
+                <span
+                  class="hero-meta-dot"
+                  style="background: #2dd4bf; color: #2dd4bf"
+                ></span>
+                <span data-i="metaEmbedded">إمبيدد</span>
+              </div>
+              <div class="hero-meta-item">
+                <span
+                  class="hero-meta-dot"
+                  style="background: #ff8c42; color: #ff8c42"
+                ></span>
+                <span data-i="metaWeb">ويب</span>
+              </div>
+              <div class="hero-meta-item">
+                <span
+                  class="hero-meta-dot"
+                  style="background: #a78bfa; color: #a78bfa"
+                ></span>
+                <span data-i="metaMobile">موبايل</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a
+          class="hero-scroll"
+          href="#list"
+          data-aria="scroll"
+          aria-label="Scroll down"
+        >
+          <span class="hero-scroll-mouse">
+            <span class="hero-scroll-wheel"></span>
+          </span>
+          <span class="hero-scroll-text" data-i="scroll">اسحب للأسفل</span>
+        </a>
+      </div>
+    </section>
+
+    <main class="wrap" id="app"></main>
+
+    <footer class="premium">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>Archai Integrated Systems</h3>
+            <p data-i="footerAbout">
+              هندسة حلول برمجية ومدمجة وموبايل بمعايير عالية. نبني أنظمة موثوقة
+              لأعمال حقيقية.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4 data-i="footerLinks">الموقع</h4>
+            <a href="index.html" data-i="home">الرئيسية</a>
+            <a href="index.html#list" data-i="projects">المشاريع</a>
+            <a href="index.html#sl" data-i="featT">المشاريع المميزة</a>
+          </div>
+          <div class="footer-col">
+            <h4 data-i="footerContact">تواصل</h4>
+            <a href="mailto:info@archai.com">info@archai.com</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div data-i="footerRights">© أرشاي للأنظمة المتكاملة</div>
+          <div data-i="footerLocation">القاهرة · مصر</div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { home } from "./js/public.js";
+      home();
+    </script>
+  </body>
+</html>
