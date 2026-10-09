@@ -1,0 +1,222 @@
+/* ============================================================
+   light.css v2 — "Daylight Circuit"
+   Bright canvas + ink chrome (sidebar, footer, logo chips) + vivid
+   amber/teal/violet mesh. All rules scoped to data-theme="light".
+   Palette tokens live in variables.css.
+   ============================================================ */
+:root[data-theme="light"] ::selection { background: rgba(194, 65, 12, 0.2); color: var(--ink-0); }
+:root[data-theme="light"] body { background: #f1f3fa; color: var(--ink-1); }
+:root[data-theme="light"] body::after {
+  background:
+    radial-gradient(ellipse 55% 45% at 92% 6%, rgba(255, 140, 66, 0.16), transparent 62%),
+    radial-gradient(ellipse 50% 45% at 4% 42%, rgba(45, 212, 191, 0.13), transparent 62%),
+    radial-gradient(ellipse 60% 50% at 55% 100%, rgba(139, 120, 255, 0.12), transparent 66%);
+}
+
+/* ---------- Buttons ---------- */
+:root[data-theme="light"] .btn.p,
+:root[data-theme="light"] .hero-cta {
+  background: var(--grad-primary);
+  color: #fff;
+  border-color: transparent;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
+  box-shadow: var(--glow-amber);
+}
+:root[data-theme="light"] .btn.p:hover,
+:root[data-theme="light"] .hero-cta:hover {
+  background: linear-gradient(135deg, #e04f10 0%, #a8360a 100%);
+  box-shadow: var(--glow-amber-lg);
+}
+:root[data-theme="light"] .btn.p::before { display: none; }
+:root[data-theme="light"] .btn.p:focus-visible,
+:root[data-theme="light"] .hero-cta:focus-visible { outline-color: var(--ink-0); }
+:root[data-theme="light"] .btn:not(.p),
+:root[data-theme="light"] .hero-cta-ghost {
+  background: #fff;
+  color: var(--ink-0);
+  border-color: var(--line-2);
+  box-shadow: var(--lift-1);
+}
+:root[data-theme="light"] .btn:not(.p):hover,
+:root[data-theme="light"] .hero-cta-ghost:hover {
+  background: #fff;
+  border-color: var(--line-amber);
+  box-shadow: var(--lift-3);
+}
+:root[data-theme="light"] .btn.d { color: var(--danger); border-color: rgba(198, 40, 40, 0.28); }
+:root[data-theme="light"] .btn.d:hover { background: rgba(198, 40, 40, 0.06); border-color: var(--danger); }
+
+/* ---------- Header + logo chip ---------- */
+:root[data-theme="light"] header.top {
+  background: rgba(255, 255, 255, 0.86);
+  border-bottom: 1px solid var(--line-2);
+  box-shadow: 0 6px 24px rgba(34, 27, 72, 0.06);
+}
+:root[data-theme="light"] .nav img,
+:root[data-theme="light"] .login img {
+  background: #14101f;
+  padding: 5px 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(20, 16, 31, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+/* ---------- Hero: vivid mesh instead of a pale wash ---------- */
+:root[data-theme="light"] .hero {
+  background:
+    radial-gradient(60% 75% at 94% 0%, rgba(255, 150, 80, 0.46), transparent 62%),
+    radial-gradient(55% 70% at 3% 38%, rgba(45, 212, 191, 0.32), transparent 64%),
+    radial-gradient(62% 60% at 62% 108%, rgba(139, 120, 255, 0.28), transparent 66%),
+    linear-gradient(180deg, #fffaf4 0%, #f1f3fc 100%);
+  border-bottom: 1px solid var(--line-2);
+}
+:root[data-theme="light"] .hero-grid-lines { opacity: 1; }
+:root[data-theme="light"] .hero-orb { opacity: 0.5; }
+:root[data-theme="light"] .hero-shape { opacity: 0.55; border-color: rgba(20, 16, 31, 0.14); }
+:root[data-theme="light"] .hero-particles { opacity: 0.4; }
+:root[data-theme="light"] .hero-title-ar,
+:root[data-theme="light"] .hero-title-en { filter: none; }
+:root[data-theme="light"] .hero-desc,
+:root[data-theme="light"] .hero p { color: var(--ink-2); }
+:root[data-theme="light"] .hero-eyebrow {
+  background: #14101f;
+  color: #ffe6d1;
+  border-color: transparent;
+  box-shadow: 0 8px 24px rgba(20, 16, 31, 0.28);
+}
+:root[data-theme="light"] .hero-eyebrow-dot { background: #2dd4bf; box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.25); }
+:root[data-theme="light"] .hero-stat {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--lift-4);
+  border-radius: 50%;
+}
+:root[data-theme="light"] .hero-meta { border-top-color: var(--line-2); }
+:root[data-theme="light"] .hero-meta-item { color: var(--ink-2); }
+:root[data-theme="light"] .hero-scroll { color: var(--ink-3); }
+
+/* ---------- Slider ---------- */
+:root[data-theme="light"] .slider { border: 0; box-shadow: 0 28px 64px rgba(20, 16, 31, 0.28); }
+:root[data-theme="light"] .slide .btn:not(.p) {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(8px);
+  box-shadow: none;
+}
+:root[data-theme="light"] .slide .btn:not(.p):hover { background: rgba(255, 255, 255, 0.26); }
+:root[data-theme="light"] .slide .badge { background: rgba(255, 255, 255, 0.94); color: var(--amber-deep); border-color: transparent; }
+
+/* ---------- Filter bar ---------- */
+:root[data-theme="light"] .bar {
+  background: #fff;
+  border: 1px solid var(--line-2);
+  box-shadow: var(--lift-3);
+}
+:root[data-theme="light"] input,
+:root[data-theme="light"] select,
+:root[data-theme="light"] textarea { background: #fff; color: var(--ink-0); border-color: var(--line-2); }
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder { color: var(--ink-4); }
+:root[data-theme="light"] input:hover,
+:root[data-theme="light"] select:hover,
+:root[data-theme="light"] textarea:hover { border-color: var(--line-3); }
+:root[data-theme="light"] input:focus,
+:root[data-theme="light"] select:focus,
+:root[data-theme="light"] textarea:focus { border-color: var(--amber-molten); box-shadow: 0 0 0 4px rgba(194, 65, 12, 0.14); }
+:root[data-theme="light"] h2.st { color: var(--ink-0); }
+
+/* ---------- Cards ---------- */
+:root[data-theme="light"] .card {
+  background: #fff;
+  border: 1px solid rgba(20, 16, 31, 0.08);
+  box-shadow: 0 1px 2px rgba(34, 27, 72, 0.05), 0 10px 28px rgba(34, 27, 72, 0.08);
+}
+:root[data-theme="light"] .card:hover {
+  border-color: rgba(194, 65, 12, 0.4);
+  box-shadow: 0 2px 4px rgba(34, 27, 72, 0.06), 0 26px 52px rgba(194, 65, 12, 0.18);
+}
+:root[data-theme="light"] .card h3 { color: var(--ink-0); }
+:root[data-theme="light"] .card p { color: var(--ink-2); }
+:root[data-theme="light"] .card .im::before { background: linear-gradient(0deg, rgba(20, 16, 31, 0.32), transparent 60%); }
+/* cover-less projects get a colourful placeholder (rotates amber / teal / violet) */
+:root[data-theme="light"] .card .im {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(20, 16, 31, 0.10) 1px, transparent 1.6px) 0 0 / 14px 14px,
+    linear-gradient(135deg, #ffe3cf 0%, #ffd2c2 100%);
+}
+:root[data-theme="light"] .card:nth-child(3n+2) .im {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(20, 16, 31, 0.10) 1px, transparent 1.6px) 0 0 / 14px 14px,
+    linear-gradient(135deg, #c9f3ec 0%, #bfe6f5 100%);
+}
+:root[data-theme="light"] .card:nth-child(3n+3) .im {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(20, 16, 31, 0.10) 1px, transparent 1.6px) 0 0 / 14px 14px,
+    linear-gradient(135deg, #e4dcff 0%, #f6d3ee 100%);
+}
+
+/* ---------- Badges & tags ---------- */
+:root[data-theme="light"] .badge { background: #fff1e8; color: var(--amber-deep); border: 1px solid rgba(194, 65, 12, 0.22); }
+:root[data-theme="light"] .badge.c { background: #e4f6f3; color: #0b5f57; border-color: rgba(15, 118, 110, 0.25); }
+:root[data-theme="light"] .tags span { background: var(--bg-3); color: var(--ink-2); border: 1px solid var(--line-1); }
+
+/* ---------- Project page ---------- */
+:root[data-theme="light"] .box,
+:root[data-theme="light"] .gal .main { background: #fff; border: 1px solid var(--line-2); box-shadow: var(--lift-3); }
+:root[data-theme="light"] .crumb,
+:root[data-theme="light"] .crumb a { color: var(--ink-3); }
+:root[data-theme="light"] .crumb a:hover { color: var(--amber-molten); }
+
+/* ---------- Footer: ink chrome (re-scoped tokens flip the text to light) ---------- */
+:root[data-theme="light"] footer.premium {
+  --ink-0: #f6f3ff; --ink-1: #e4e0f2; --ink-2: #b9b3d0; --ink-3: #9d97b8; --ink-4: #7d7699;
+  --line-1: rgba(255, 255, 255, 0.08); --line-2: rgba(255, 255, 255, 0.14);
+  --amber-molten: #ff8c42; --amber-deep: #ffb27a;
+  background: linear-gradient(180deg, #1b1631 0%, #100c1e 100%);
+  border-top: 0;
+  color: #e4e0f2;
+}
+:root[data-theme="light"] footer.premium a:hover { color: #ffb27a; }
+
+/* ---------- Dashboard: ink sidebar, accent stat cards ---------- */
+:root[data-theme="light"] .adm aside {
+  --ink-0: #fff; --ink-2: #cbc5e0;
+  background: linear-gradient(180deg, #1b1631 0%, #110d20 100%);
+  border-inline-end: 0;
+  box-shadow: 6px 0 32px rgba(20, 16, 31, 0.2);
+}
+:root[data-theme="light"] .adm aside > img { background: none; padding: 0; box-shadow: none; }
+:root[data-theme="light"] .adm aside button { color: #cbc5e0; }
+:root[data-theme="light"] .adm aside button:hover { background: rgba(255, 255, 255, 0.07); color: #fff; }
+:root[data-theme="light"] .adm aside button.on {
+  background: linear-gradient(90deg, rgba(255, 140, 66, 0.24), rgba(255, 140, 66, 0.05));
+  color: #ffb27a;
+}
+:root[data-theme="light"] .stat {
+  background: #fff;
+  border: 1px solid var(--line-2);
+  box-shadow: var(--lift-3);
+  --stat-c: #c2410c;
+}
+:root[data-theme="light"] .stat::after {
+  content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 5px; background: var(--stat-c);
+}
+:root[data-theme="light"] .stat:nth-child(2) { --stat-c: #0f8f83; }
+:root[data-theme="light"] .stat:nth-child(3) { --stat-c: #6d4fd8; }
+:root[data-theme="light"] .stat:nth-child(4) { --stat-c: #d6204f; }
+:root[data-theme="light"] .stat:nth-child(5) { --stat-c: #b45309; }
+:root[data-theme="light"] .stat:hover { box-shadow: var(--lift-4); border-color: var(--line-3); }
+:root[data-theme="light"] .stat b,
+:root[data-theme="light"] .tb h1 { background: none; -webkit-text-fill-color: currentColor; color: var(--ink-0); }
+:root[data-theme="light"] .stat span { color: var(--ink-3); }
+:root[data-theme="light"] .tw { background: #fff; border-color: var(--line-2); box-shadow: var(--lift-3); }
+:root[data-theme="light"] .tb { border-color: var(--line-2); }
+:root[data-theme="light"] th { background: var(--bg-3); color: var(--ink-2); }
+:root[data-theme="light"] td { border-bottom-color: var(--line-1); }
+
+/* ---------- Login ---------- */
+:root[data-theme="light"] .login { background: #fff; border: 1px solid var(--line-2); box-shadow: inset 0 4px 0 #c2410c, var(--lift-5); }
+
+/* ---------- Scrollbar ---------- */
+:root[data-theme="light"] { scrollbar-color: #c4c6da transparent; }
+:root[data-theme="light"] ::-webkit-scrollbar-thumb { background: #c4c6da; border-radius: 99px; }

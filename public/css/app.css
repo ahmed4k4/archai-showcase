@@ -857,6 +857,10 @@ aside::before {
 
 aside img {
   height: 44px;
+  width: auto;
+  max-width: 100%;
+  align-self: flex-start;
+  object-fit: contain;
   margin-bottom: var(--sp-5);
   border-radius: var(--r-sm);
   transition: transform var(--dur-base) var(--ease-spring);
@@ -2096,3 +2100,14 @@ section[id] {
     transition: none !important;
   }
 }
+/* Project page: its <aside> is a plain column, not the dashboard sidebar */
+.pg > aside {
+  position: static;
+  height: auto;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+
+.pg > aside::before { display: none; }

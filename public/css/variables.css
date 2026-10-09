@@ -131,89 +131,93 @@
 }
 
 /* ============================================================
-   LIGHT THEME — Clean, professional
+   LIGHT THEME — "Indigo Paper"
+   Cool indigo-tinted neutrals (echo the dark theme's indigo), white cards,
+   deep amber primary (AA contrast with white text), deep teal accent.
    ============================================================ */
 :root[data-theme="light"] {
-  --bg-0: #ffffff;
+  color-scheme: light;
+
+  --bg-0: #f4f5fa;
   --bg-1: #ffffff;
   --bg-2: #ffffff;
-  --bg-3: #fafafa;
-  --bg-glass: rgba(255, 255, 255, 0.85);
-  --bg-overlay: rgba(255, 255, 255, 0.96);
+  --bg-3: #eceef5;
+  --bg-glass: rgba(255, 255, 255, 0.82);
+  --bg-overlay: rgba(244, 245, 250, 0.96);
 
-  --ink-0: #0a0a0a;
-  --ink-1: #1f1f1f;
-  --ink-2: #525252;
-  --ink-3: #737373;
-  --ink-4: #a3a3a3;
+  --ink-0: #14101f;
+  --ink-1: #2a2438;
+  --ink-2: #4a4560;
+  --ink-3: #625d78;
+  --ink-4: #8e89a3;
 
-  --cream-50: #0a0a0a;
-  --cream-100: #0a0a0a;
-  --cream-200: #1f1f1f;
-  --cream-300: #525252;
-  --cream-400: #737373;
+  --cream-50: #14101f;
+  --cream-100: #14101f;
+  --cream-200: #2a2438;
+  --cream-300: #4a4560;
+  --cream-400: #625d78;
 
-  --amber-molten: #ea580c;
-  --amber-glow: #f97316;
-  --amber-deep: #c2410c;
-  --amber-coal: #9a3412;
+  --amber-molten: #c2410c;
+  --amber-glow: #ea580c;
+  --amber-deep: #9a3412;
+  --amber-coal: #7c2d12;
 
-  --primary: #ea580c;
-  --primary-hover: #c2410c;
+  --primary: #c2410c;
+  --primary-hover: #a8360a;
   --primary-contrast: #ffffff;
 
-  --teal-signal: #0d9488;
+  --teal-signal: #0f8f83;
   --teal-glow: #14b8a6;
   --teal-deep: #0f766e;
 
-  --violet-hint: #7c3aed;
-  --rose-trace: #e11d48;
+  --violet-hint: #6d4fd8;
+  --rose-trace: #d6204f;
 
-  --accent: #0d9488;
-  --signal: #e11d48;
+  --accent: #0f766e;
+  --signal: #d6204f;
 
-  --success: #059669;
-  --warning: #ea580c;
-  --danger: #dc2626;
-  --info: #0d9488;
+  --success: #047857;
+  --warning: #b45309;
+  --danger: #c62828;
+  --info: #0f766e;
 
-  --line-1: rgba(0, 0, 0, 0.06);
-  --line-2: rgba(0, 0, 0, 0.09);
-  --line-3: rgba(0, 0, 0, 0.14);
-  --line-amber: rgba(234, 88, 12, 0.25);
-  --line-teal: rgba(13, 148, 136, 0.25);
+  --line-1: rgba(20, 16, 31, 0.07);
+  --line-2: rgba(20, 16, 31, 0.12);
+  --line-3: rgba(20, 16, 31, 0.20);
+  --line-amber: rgba(194, 65, 12, 0.38);
+  --line-teal: rgba(15, 118, 110, 0.38);
 
-  --lift-1: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --lift-2: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
-  --lift-3: 0 4px 12px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.03);
-  --lift-4: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
-  --lift-5: 0 16px 40px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --lift-1: 0 1px 2px rgba(34, 27, 72, 0.06);
+  --lift-2: 0 1px 2px rgba(34, 27, 72, 0.05), 0 4px 12px rgba(34, 27, 72, 0.06);
+  --lift-3: 0 2px 4px rgba(34, 27, 72, 0.05), 0 10px 24px rgba(34, 27, 72, 0.09);
+  --lift-4: 0 4px 8px rgba(34, 27, 72, 0.06), 0 18px 40px rgba(34, 27, 72, 0.13);
+  --lift-5: 0 8px 16px rgba(34, 27, 72, 0.08), 0 32px 64px rgba(34, 27, 72, 0.16);
 
-  --glow-amber: 0 1px 2px rgba(234, 88, 12, 0.08), 0 0 0 3px rgba(234, 88, 12, 0.06);
-  --glow-amber-lg: 0 4px 12px rgba(234, 88, 12, 0.12), 0 0 0 4px rgba(234, 88, 12, 0.08);
-  --glow-teal: 0 1px 2px rgba(13, 148, 136, 0.08), 0 0 0 3px rgba(13, 148, 136, 0.06);
-  --glow-rose: 0 1px 2px rgba(225, 29, 72, 0.08);
-  --glow-violet: 0 1px 2px rgba(124, 58, 237, 0.08);
+  --glow-amber: 0 1px 2px rgba(154, 52, 18, 0.25), 0 6px 16px rgba(194, 65, 12, 0.22);
+  --glow-amber-lg: 0 2px 4px rgba(154, 52, 18, 0.28), 0 12px 28px rgba(194, 65, 12, 0.32);
+  --glow-teal: 0 1px 2px rgba(15, 118, 110, 0.2), 0 6px 16px rgba(15, 118, 110, 0.18);
+  --glow-rose: 0 4px 12px rgba(214, 32, 79, 0.18);
+  --glow-violet: 0 4px 12px rgba(109, 79, 216, 0.18);
 
   --grad-hero:
-    radial-gradient(ellipse 80% 50% at 85% -10%, rgba(249, 115, 22, 0.06), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 15% 30%, rgba(13, 148, 136, 0.04), transparent 60%),
-    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(124, 58, 237, 0.03), transparent 65%),
-    linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+    radial-gradient(ellipse 70% 55% at 88% -8%, rgba(234, 88, 12, 0.11), transparent 62%),
+    radial-gradient(ellipse 60% 55% at 8% 28%, rgba(15, 143, 131, 0.09), transparent 62%),
+    radial-gradient(ellipse 60% 45% at 50% 105%, rgba(109, 79, 216, 0.07), transparent 65%),
+    linear-gradient(180deg, #fbfbfe 0%, #f1f2f9 100%);
 
-  --grad-primary: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%);
-  --grad-teal: linear-gradient(135deg, #14b8a6, #0f766e);
-  --grad-text: linear-gradient(135deg, #0a0a0a 0%, #ea580c 55%, #0d9488 100%);
+  --grad-primary: linear-gradient(135deg, #d1470d 0%, #b83a09 100%);
+  --grad-teal: linear-gradient(135deg, #14a193, #0f766e);
+  --grad-text: linear-gradient(110deg, #14101f 0%, #2b2147 40%, #c2410c 100%);
 
   --grad-card-hairline: linear-gradient(
-    135deg, transparent 20%, #ea580c 45%, #0d9488 55%, transparent 80%
+    135deg, transparent 20%, #c2410c 45%, #0f8f83 55%, transparent 80%
   );
 
   --dlg-bg: #ffffff;
-  --dlg-border: rgba(0, 0, 0, 0.08);
-  --dlg-header-bg: #fafafa;
+  --dlg-border: rgba(20, 16, 31, 0.10);
+  --dlg-header-bg: linear-gradient(135deg, rgba(234, 88, 12, 0.07), rgba(15, 143, 131, 0.05));
   --dlg-input-bg: #ffffff;
-  --dlg-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --dlg-shadow: 0 32px 80px rgba(34, 27, 72, 0.22), 0 0 0 1px rgba(20, 16, 31, 0.06);
 }
 
 @media (prefers-reduced-motion: reduce) {

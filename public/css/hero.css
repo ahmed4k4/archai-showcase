@@ -8,7 +8,7 @@
   overflow: hidden;
   background: var(--grad-hero);
   border-bottom: 1px solid var(--line-1);
-  padding: clamp(3rem, 8vh, 6rem) 0 clamp(4rem, 10vh, 7rem);
+  padding: clamp(3rem, 8vh, 6rem) 0 clamp(6.5rem, 15vh, 9rem);
   min-height: clamp(600px, 88vh, 900px);
   display: flex;
   align-items: center;
@@ -622,7 +622,7 @@
 
 .hero-scroll {
   position: absolute;
-  bottom: clamp(1rem, 3vh, 2rem);
+  bottom: -4.5rem;
   inset-inline: 0;
   margin-inline: auto;
   width: fit-content;

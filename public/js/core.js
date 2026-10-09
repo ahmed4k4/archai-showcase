@@ -429,7 +429,7 @@ export function applyI18n(root = document) {
   $$("[data-i]", root).forEach((e) => {
     const k = e.dataset.i;
     const v = t(k);
-    if (v !== k) e.textContent = v;
+    if (v !== k) e.textContent = v.replace("{year}", new Date().getFullYear());
   });
   $$("[data-ph]", root).forEach((e) => {
     const k = e.dataset.ph;
